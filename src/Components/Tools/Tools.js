@@ -54,3 +54,26 @@ export const studentsidebar = [
         to:'/studentlogout'
     }
 ]
+
+export const adminsidebar = [
+    {
+        name:'Dashboard',
+        icon:'tv',
+        to:'/dashboard'
+    },
+    {
+        name:'Student Forms',
+        icon:'student',
+        to:'/student-forms'
+    },
+    {
+        name:'Teacher Forms',
+        icon:'user',
+        to:'/teacher-forms'
+    },
+    {
+        name:'Log Out',
+        icon:'log out',
+        to:'/studentlogout'
+    }
+]

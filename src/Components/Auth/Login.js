@@ -47,7 +47,7 @@ export default class Login extends Component {
     render() {
         return (
             <div className="background">
-                <Grid textAlign='center' style={{ height: '102vh' }} verticalAlign='middle'>
+                <Grid textAlign='center' style={{ height: '101.5vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Image src={Logo}/>
                 

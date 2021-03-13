@@ -5,12 +5,15 @@ import Odform from '../Form/Odform'
 import TeacherProfile from '../Teacher/Profile'
 import Records from '../Teacher/RecordList'
 import TeacherLogout from '../Teacher/Logout'
-import { teachersidebar,studentsidebar } from '../Tools/Tools'
+import { teachersidebar,studentsidebar,adminsidebar } from '../Tools/Tools'
 import Sidebar from '../Sidebar/Sidebar'
 import StudentProfile from '../Student/Profile'
 import StudentRecords from '../Student/RecordList'
 import Studentodform from '../Student/Form'
 import StudentLogout from '../Student/Logout'
+import Dashboard from '../Admin/Dashboard'
+import TeacherForms from '../Admin/Teacherforms'
+import StudentForms from '../Admin/StudenForm'
 export default class Router extends Component {
     render() {
         return (
@@ -50,6 +53,23 @@ export default class Router extends Component {
                     </Sidebar>
                 </Route>
                 <Route exact path='/studentlogout' component={StudentLogout}/>
+
+
+                <Route exact path='/dashboard'>
+                    <Sidebar Menu={adminsidebar}>
+                        <Dashboard/>
+                    </Sidebar>
+                </Route>
+                <Route exact path='/teacher-forms'>
+                    <Sidebar Menu={adminsidebar}>
+                        <TeacherForms/>
+                    </Sidebar>
+                </Route>
+                <Route exact path='/student-forms'>
+                    <Sidebar Menu={adminsidebar}>
+                        <StudentForms/>
+                    </Sidebar>
+                </Route>
             </div>
         )
     }
