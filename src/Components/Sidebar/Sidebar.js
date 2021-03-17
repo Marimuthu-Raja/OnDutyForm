@@ -27,9 +27,9 @@ export default function VerticalSidebar(props){
         <Image src={Logo} style={{width:"100px",height:"100px"}}/>
       </Menu.Item>
 
-      {props.Menu.map(Item =>
+      {props.Menu.map((Item,i) =>
           <Link to={Item.to} className='item'>
-            <Menu.Item>
+            <Menu.Item key={i}>
               <Icon name={Item.icon} />
                 {Item.name}
             </Menu.Item>

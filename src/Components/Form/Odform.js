@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Grid,Form, Segment, Header,Button } from 'semantic-ui-react'
+import {teacherForms,teachers} from '../FireBase/Firbase'
+import {Alert} from '../Tools/Tools'
 import './Odform.css'
 
 export default class Odform extends Component {
@@ -15,15 +17,33 @@ export default class Odform extends Component {
              purpose:'',
              attendance:null,
              certificate:null,
-             odavailed:'',
+             odavailed:null,
              affected_date:'',
              venue:'',
+             teacherData:'',
         }
     }
-    
+    componentDidMount(){
+        teachers.doc(localStorage.getItem('teacherid')).get().then(res=>{
+            const teacherData = res.data()
+            this.setState({odavailed:teacherData.odavailed})
+        })
+    }
     onChange = (e) =>{
         this.setState({[e.target.name]:e.target.value})
         console.log(e)
+    }
+
+    Submit = () =>{
+        const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData} = this.state
+        const data = {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,
+                    accepted:true,
+                    rejected:false,
+                    Email:teacherData.Email
+                }
+
+        teacherForms.add(data)
+        Alert('success','Success!','Form Request Sent')
     }
     render() {
         const {name,designation,from_date,to_date,purpose,odavailed,affected_date,venue} = this.state
@@ -35,7 +55,7 @@ export default class Odform extends Component {
                                    On Duty Application
                                </Header>
 
-                                <Form style={{padding:"20px"}}>
+                                <Form style={{padding:"20px"}} onSubmit={this.Submit}>
                                     <Form.Input type="text" placeholder="Name" value={name} label='Name' name='name' required onChange={this.onChange}/>
 
                                     <Form.Input type="text" placeholder="Designation" value={designation} label='Designation' name='designation' required onChange={this.onChange}/>
@@ -49,7 +69,7 @@ export default class Odform extends Component {
 
                                     <Form.Field required>
                                         <label>Nature of On Duty</label>
-                                        <select name='nature' defaultValue='' onChange={this.onChange}>
+                                        <select className='form-control' name='natureofonduty' defaultValue='' onChange={this.onChange}>
                                             <option value='' disabled>Nature of OnDuty</option>
                                             <option value='Attending_orientation_programmes'>Attending Orientation Programmes</option>
                                             <option value='Refresher_Courses'>Refresher Courses</option>
@@ -76,7 +96,7 @@ export default class Odform extends Component {
                                     <Form.Input type="date" label='Work Affected Days' value={affected_date} name='affected_date' required onChange={this.onChange}/>
 
                                     <div style={{textAlign:'center'}}>
-                                        <Button color='teal'>Submit</Button>
+                                        <Button color='teal' size='large'>Submit</Button>
                                     </div>
 
                                 </Form>

@@ -1,11 +1,28 @@
 import React, { Component } from 'react'
 import { Grid, Segment,Image,Header, Divider, Container,Button } from 'semantic-ui-react'
-
+import {students} from '../FireBase/Firbase'
 export default class Profile extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             studentData:[]
+        }
+    }
+    
+
+
+    componentDidMount(){
+        students.doc(localStorage.getItem('studentid')).get().then(res=>{
+            const studentData = res.data()
+            this.setState({studentData})
+        })
+    }
+
     render() {
+        const {studentData} = this.state
         return (
-                    <Grid centered columns={2}>
-                        <Grid.Column>
+                   <Container text>
                             <Segment style={{marginTop:'20px'}} raised>
                                 <Header as='h2' color='teal' textAlign='center'>
                                     Profile
@@ -16,35 +33,93 @@ export default class Profile extends Component {
                                 <Divider fitted style={{marginTop:'20px'}}/>
                                 <div style={{marginTop:'30px'}}>
                                     <Container text>
-                                        <Header as='h5'>
-                                            Name:
-                                        </Header>
-                                        <Header as='h5'>
-                                            Register Number:
-                                        </Header>
-                                        <Header as='h5'>
-                                            Department:
-                                        </Header>
-                                        <Header as='h5'>
-                                            Email:
-                                        </Header>
-                                        <Header as='h5'>
-                                            Date Of Birth:
-                                        </Header>
-                                        <Header as='h5'>
-                                            Address:
-                                        </Header>
-                                        <div style={{textAlign:'center'}}>
-                                        <Button color='teal'>Edit</Button>
-                                    </div>
+                                        <Grid columns={2} style={{marginTop:'20px'}}>
+                                            <Grid.Column>
+                                                <Header as="h5" textAlign='center'>
+                                                    Name
+                                                </Header>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Header as="h4">
+                                                    {studentData.Name}
+                                                </Header>
+                                            </Grid.Column>
+                                        </Grid>
+
+                                        <Grid columns={2} style={{marginTop:'20px'}}>
+                                            <Grid.Column>
+                                                <Header as="h5" textAlign='center'>
+                                                    Register Number
+                                                </Header>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Header as="h4">
+                                                {studentData.RegNo}
+                                                </Header>
+                                            </Grid.Column>
+                                        </Grid>
+
+                                        <Grid columns={2} style={{marginTop:'20px'}}>
+                                            <Grid.Column>
+                                                <Header as="h5" textAlign='center'>
+                                                Department
+                                                </Header>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Header as="h4">
+                                                {studentData.Dept}
+                                                </Header>
+                                            </Grid.Column>
+                                        </Grid>
+
+                                        <Grid columns={2} style={{marginTop:'20px'}}>
+                                            <Grid.Column>
+                                                <Header as="h5" textAlign='center'>
+                                                Email
+                                                </Header>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Header as="h4">
+                                                {studentData.Email}
+                                                </Header>
+                                            </Grid.Column>
+                                        </Grid>
+
+                                        <Grid columns={2} style={{marginTop:'20px'}}>
+                                            <Grid.Column>
+                                                <Header as="h5" textAlign='center'>
+                                                Date Of Birth
+                                                </Header>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Header as="h4">
+                                                {studentData.DOB}
+                                                </Header>
+                                            </Grid.Column>
+                                        </Grid>
+
+                                        <Grid columns={2} style={{marginTop:'20px'}}>
+                                            <Grid.Column>
+                                                <Header as="h5" textAlign='center'>
+                                               Address
+                                                </Header>
+                                            </Grid.Column>
+                                            <Grid.Column>
+                                                <Header as="h4">
+                                                {studentData.address}
+                                                </Header>
+                                            </Grid.Column>
+                                        </Grid>
+
+                                       
                                     </Container>
                                     
                                 </div>
-
+                                <div style={{textAlign:'center',marginTop:"45px"}}>
+                                        <Button color='teal'>Edit</Button>
+                                    </div>
                             </Segment>
-
-                        </Grid.Column>
-                    </Grid>
+                        </Container>
         )
     }
 }

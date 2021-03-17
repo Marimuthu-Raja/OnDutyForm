@@ -1,22 +1,44 @@
 import React, { Component } from 'react'
 import { Container,Segment,Header,Form,Grid,Input, Checkbox, Button } from 'semantic-ui-react'
+import {students,studentForms} from '../FireBase/Firbase'
+import {Alert} from '../Tools/Tools'
+
 export default class StudentOdForm extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-             name:'Student Name',
-             registernumber:'Student Register Number',
-             dept:'Department',
+             Name:'',
+             Dept:'',
+             RegNo:'',
              req_date:'',
              sanc_date:'',
              purpose:'',
-             availed:'3',
+             availed:0,
              req_days:'',
              checked:false,
+             studentdata:[],
+             studentid:localStorage.getItem('studentid')
         }
     }
 
+    componentDidMount(){
+
+        students.doc(`${this.state.studentid}`).get().then(response=>{
+            const studentdata = response.data()
+            this.setState({studentdata})
+            console.log(studentdata)
+            if(studentdata !== undefined){
+                this.setState({
+                    Name:studentdata.Name,
+                    Dept:studentdata.Dept,
+                    RegNo:studentdata.RegNo,
+                    availed:studentdata.availed})
+            }
+        })
+
+    }
+    
     HandleInput = (e) =>{
         this.setState({[e.target.name]:e.target.value})
     }
@@ -26,10 +48,21 @@ export default class StudentOdForm extends Component {
     }
 
     submit = () =>{
-        console.log(this.state)
+        const {checked,req_date,req_days,availed,purpose,sanc_date,Name,Dept,RegNo} = this.state
+        const data = {Name,Dept,RegNo,req_date,req_days,purpose,accepted:false,rejected:false,sanc_date,availed}
+
+        if(checked){
+            studentForms.add(data)
+            Alert("success","Success!","Form Request Sent")
+            
+        }
+        else{
+            Alert("error","Oops!","Please check the checkbox")
+        }
     }
+
     render() {
-        const {name,registernumber,dept,req_date,sanc_date,purpose,availed,req_days,checked} = this.state
+        const {req_date,sanc_date,purpose,availed,req_days,checked,Name,Dept,RegNo} = this.state
         return (
             <Container>
                     <Segment style={{marginTop:'20px'}} raised>
@@ -49,7 +82,7 @@ export default class StudentOdForm extends Component {
 
                                 <Grid.Column>
                                         <Form.Field>
-                                            <Header as='h3'>{name}</Header>
+                                            <Header as='h3'>{Name}</Header>
                                         </Form.Field>
                                 </Grid.Column>
                             </Grid>
@@ -65,7 +98,7 @@ export default class StudentOdForm extends Component {
 
                                 <Grid.Column>
                                     <Form.Field>
-                                        <Header as='h3'>{registernumber}</Header>
+                                        <Header as='h3'>{RegNo}</Header>
                                     </Form.Field>
                                 </Grid.Column>
                             </Grid>
@@ -81,7 +114,7 @@ export default class StudentOdForm extends Component {
 
                                 <Grid.Column>
                                     <Form.Field>
-                                        <Header as='h3'>{dept}</Header>
+                                        <Header as='h3'>{Dept}</Header>
                                     </Form.Field>
                                 </Grid.Column>
                             </Grid>

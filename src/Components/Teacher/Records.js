@@ -18,7 +18,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.Name}
+                                                {props.form.name}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -32,7 +32,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.Designation}
+                                                {props.form.designation}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -46,7 +46,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.from_date}
+                                                {props.form.from_date}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -60,7 +60,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.to_date}
+                                                {props.form.to_date}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -74,7 +74,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.purpose}
+                                                {props.form.purpose}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -87,7 +87,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.nature}
+                                                {props.form.natureofonduty}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -100,7 +100,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.venue}
+                                                {props.form.venue}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -113,7 +113,20 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.affected}
+                                                {props.form.affected_date}
+                                            </Header>
+                                        </Grid.Column>
+                                   </Grid>
+                                   <Grid columns={2}>
+                                        <Grid.Column>
+                                            <Header as='h5' textAlign='center'>
+                                               OD Availed so far
+                                            </Header>    
+                                        </Grid.Column>
+
+                                        <Grid.Column>
+                                            <Header as='h5'>
+                                                {props.availed}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>

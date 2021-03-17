@@ -1,10 +1,36 @@
 import React, { Component } from 'react'
 import Records from './Records'
 import {Segment,Header, Container} from 'semantic-ui-react'
-
+import {teachers,teacherForms} from '../FireBase/Firbase'
+import { firebaseLooper } from '../FireBase/FirebaseLooper'
 
 export default class RecordList extends Component {
+        constructor(props) {
+            super(props)
+
+            this.state = {
+                forms:[],
+                teacherData:'',
+            }
+        }
+
+    componentDidMount(){
+        teachers.doc(localStorage.getItem('teacherid')).get().then(res=>{
+            const teacherData = res.data()
+            console.log(teacherData)
+            this.setState({teacherData})
+        })
+
+        teacherForms.get().then(res=>{
+            const forms = firebaseLooper(res)
+            console.log(forms)
+            this.setState({forms})
+        })
+    }
+
+    
     render() {
+        const {forms,teacherData} = this.state
         return (
             <>
                     <Container>
@@ -14,8 +40,7 @@ export default class RecordList extends Component {
                             </Header>
                         </Segment>
                     </Container>
-
-                    <Records/>
+                {forms.map(form=> form.teacher_id === localStorage.getItem('teacherid') &&  <Records form={form} availed={teacherData.odavailed}/>)}     
             </>
         )
     }

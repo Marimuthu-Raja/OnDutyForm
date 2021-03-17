@@ -3,22 +3,34 @@ import './Login.css'
 import {  Button, Form, Grid, Header, Segment, Image } from 'semantic-ui-react';
 import Logo from '../logo.png'
 import {Alert} from '../Tools/Tools'
+import {students,teachers} from '../FireBase/Firbase'
+import {firebaseLooper} from '../FireBase/FirebaseLooper'
 
 export default class Login extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-             teacher:'teacher',
-             tpassword:'password',
-             student:'student',
-             spassword:'password',
              admin:'admin',
              apassword:'password',
              username:'',
              password:'',
-
+             studentData:[],
+             teacherData:[],
         }
+    }
+
+    componentDidMount(){
+        students.get().then(res=>{
+            const studentData = firebaseLooper(res)
+            this.setState({studentData})
+        })
+
+        teachers.get().then(res=>{
+            const teacherData = firebaseLooper(res)
+            this.setState({teacherData})
+        })
+
     }
     
     HandleInput = (e) => {
@@ -26,16 +38,25 @@ export default class Login extends Component {
     }
 
     login = () =>{
-        const {username,password,teacher,tpassword,student,spassword,admin,apassword} = this.state
+        const {username,password,admin,apassword,studentData,teacherData} = this.state
+
+        const isStudent = studentData.find(student=> student.RegNo === username && student.DOB === password)
+
+        const isTeacher = teacherData.find(teacher=> teacher.Email === username && teacher.password === password)
+
         if(username === '' || password === ''){
             Alert('error','Oops!','Please Fill out All Fields')
         }
-        else if(username === teacher && password === tpassword){
-            this.props.history.push('/od-form')
-        }
-        else if(username === student && password === spassword){
+        else if(isStudent !== undefined){
+            localStorage.setItem('studentid',isStudent.id)
             this.props.history.push('/student-od-form')
         }
+        
+        else if(isTeacher !== undefined){
+            localStorage.setItem('teacherid',isTeacher.id)
+            this.props.history.push('/od-form')
+        }
+
         else if(username === admin && password === apassword){
             this.props.history.push('/dashboard')
         }

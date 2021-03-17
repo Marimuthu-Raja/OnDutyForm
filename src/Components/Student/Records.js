@@ -18,7 +18,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.Name}
+                                                {props.form.Name}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -32,7 +32,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.Department}
+                                                {props.form.Dept}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -46,7 +46,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.reg_no}
+                                                {props.form.RegNo}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -60,7 +60,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.req_date}
+                                                {props.form.req_date}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -74,20 +74,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.sanc_date}
-                                            </Header>
-                                        </Grid.Column>
-                                   </Grid>
-                                   <Grid columns={2}>
-                                        <Grid.Column>
-                                            <Header as='h5' textAlign='center'>
-                                                Nature of On Duty
-                                            </Header>    
-                                        </Grid.Column>
-
-                                        <Grid.Column>
-                                            <Header as='h5'>
-                                                {props.nature}
+                                                {props.form.sanc_date}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -100,7 +87,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.purpose}
+                                                {props.form.purpose}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
@@ -126,7 +113,7 @@ export default function Records (props) {
 
                                         <Grid.Column>
                                             <Header as='h5'>
-                                                {props.required}
+                                                {props.form.req_days}
                                             </Header>
                                         </Grid.Column>
                                    </Grid>

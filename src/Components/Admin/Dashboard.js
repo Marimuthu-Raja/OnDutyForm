@@ -1,7 +1,40 @@
 import React, { Component } from 'react'
-import { Segment,Header,Grid, Container, Divider,Card,Image,Button} from 'semantic-ui-react'
+import { Segment,Header,Container,Grid, Form} from 'semantic-ui-react'
+import {teacherForms,teachers,studentForms,students} from '../FireBase/Firbase'
+import { firebaseLooper } from '../FireBase/FirebaseLooper'
 export default class Dashboard extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             from_date:'',
+             to_date:'',
+             category:'',
+             student:'',
+             teacher:'',
+             studentData:[],
+             teacherData:[],
+        }
+    }
+    
+    componentDidMount(){
+        students.get().then(res=>{
+            const studentData = firebaseLooper(res)
+            this.setState({studentData})
+        })
+
+        teachers.get().then(res=>{
+            const teacherData = firebaseLooper(res)
+            this.setState({teacherData})
+        })
+    }
+
+
+    onChange = (e) =>{
+        this.setState({[e.target.name]:e.target.value})
+    }
     render() {
+        const {from_date,to_date,category,teacherData,studentData} = this.state
         return (
             <>
                 <Container>
@@ -10,94 +43,55 @@ export default class Dashboard extends Component {
                     </Segment>
                 </Container>
 
-                <Container fluid style={{marginTop:'20px'}}>
+                <Grid columns={2} style={{marginTop:'20px'}}>
+                    <Grid.Column>
+                        <Container>
+                            <Segment>
+                                <Form>
+                                   <Form.Field>
+                                       <label>Select Category</label>
+                                       <select className='form-control' name='category' onChange={this.onChange}>
+                                           <option disabled selected>Category</option>
+                                           <option value='student'>Student</option>
+                                           <option value='teacher'>Teacher</option>
+                                       </select>
+                                   </Form.Field>
 
-                <Grid centered columns={2}>
-                    <Grid.Column only='large screen' mobile={16} computer={8} tablet={16}>
-                        <Segment>
-                            <Header as='h2' color='teal' textAlign='center'>Teacher Forms</Header>
-                            <Divider fitted/>
-                            <Container text style={{marginTop:'20px'}}>
-                                
-                                </Container>
-                        </Segment>
+                                    {category === 'student'?
+                                    <Form.Field>
+                                        <label>Select Student</label>
+                                        <select className='form-control' name='student' onChange={this.onChange}>
+                                            <option disabled selected>Select Student</option>
+                                            {studentData.map(student=> <option value={student.availed}>{student.Name}</option>)}
+                                        </select>
+                                    </Form.Field>
+                                    :category === 'teacher'?
+                                    <Form.Field>
+                                        <label>Select Teacher</label>
+                                        <select className='form-control' name='teacher' onChange={this.onChange}>
+                                            <option disabled selected>Select Teacher</option>
+                                            {teacherData.map(teacher=> <option value={teacher.odavailed}>{teacher.Name}</option>)}
+                                        </select>
+                                    </Form.Field>:''}
+
+                                   <Form.Group widths={2}>
+                                        <Form.Input type="date" label='From' name='from_date' value={from_date} required onChange={this.onChange}/>
+                                        <Form.Input type="date" label='To' name='to_date'value={to_date} required onChange={this.onChange}/>
+                                    </Form.Group>
+                                </Form>
+                            </Segment>
+                        </Container>
                     </Grid.Column>
 
-                    <Grid.Column  mobile={16} computer={8} tablet={16}>
-                        <Segment>
-                            <Header as='h2' color='teal' textAlign='center'>Student Forms</Header>
-                            <Divider fitted/>
-                            <Container text style={{marginTop:'20px'}}>
-                                <Card.Group>
-                                <Card>
-                                    <Card.Content>
-                                        <Image
-                                        floated='right'
-                                        size='mini'
-                                        src='https://react.semantic-ui.com/images/wireframe/square-image.png'
-                                        />
-                                        <Card.Header>Student Name</Card.Header>
-                                            <Card.Meta>Request of OD</Card.Meta>
-                                                <Card.Description>
-                                                    Student wants On Duty for this Reason
-                                                </Card.Description>
-                                    </Card.Content>
-
-                                    <Card.Content extra>
-                                        <Button inverted fluid color='violet'>
-                                            View Form
-                                        </Button>
-                                    </Card.Content>
-                                </Card>
-                                <Card>
-                                    <Card.Content>
-                                        <Image
-                                        floated='right'
-                                        size='mini'
-                                        src='https://react.semantic-ui.com/images/wireframe/square-image.png'
-                                        />
-                                        <Card.Header>Student Name</Card.Header>
-                                            <Card.Meta>Request of OD</Card.Meta>
-                                                <Card.Description>
-                                                    Student wants On Duty for this Reason
-                                                </Card.Description>
-                                    </Card.Content>
-
-                                    <Card.Content extra>
-                                        <Button inverted fluid color='violet'>
-                                            View Form
-                                        </Button>
-                                    </Card.Content>
-                                </Card>
-                                <Card>
-                                    <Card.Content>
-                                        <Image
-                                        floated='right'
-                                        size='mini'
-                                        src='https://react.semantic-ui.com/images/wireframe/square-image.png'
-                                        />
-                                         <Card.Header>Student Name</Card.Header>
-                                            <Card.Meta>Request of OD</Card.Meta>
-                                                <Card.Description>
-                                                    Student wants On Duty for this Reason
-                                                </Card.Description>
-                                    </Card.Content>
-
-                                    <Card.Content extra>
-                                        <Button inverted fluid color='violet'>
-                                            View Form
-                                        </Button>
-                                    </Card.Content>
-                                </Card>
+                    <Grid.Column>
+                        <Container>
+                            <Segment>
                                 
-                                </Card.Group>
-                                </Container>
-                        </Segment>
+                            </Segment>
+                        </Container>
                     </Grid.Column>
-
                 </Grid>
 
-                </Container>
                 
             </>
         )
