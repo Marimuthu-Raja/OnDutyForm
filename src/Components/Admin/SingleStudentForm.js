@@ -28,7 +28,7 @@ export default class SingleStudentForm extends Component {
         const availed = this.state.studentData.availed+parseInt(form.req_days)
         
         studentForms.doc(form.id).update({
-            accepted:true
+            accepted:true,pending:false,
         })
 
         students.doc(this.state.studentData.id).update({
@@ -42,7 +42,7 @@ export default class SingleStudentForm extends Component {
 
     HandleReject = (form) =>{
         studentForms.doc(form.id).update({
-            rejected:true
+            rejected:true,pending:false
         })
         Alert("warning","Form Rejected!")
         this.props.formload()

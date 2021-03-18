@@ -77,3 +77,57 @@ export const adminsidebar = [
         to:'/studentlogout'
     }
 ]
+
+
+export const CalculateReport = (total,accepted,rejected,pending) => {
+    const data= { 
+        labels: [
+            "Total",
+           "Accepted",
+           "Rejected",
+           "Pending",
+
+       ],
+       datasets: [
+           {
+               data: [total,accepted,rejected,pending],
+               borderWidth: 1,
+               backgroundColor: [
+                   'rgb(255,165,0,0.5)',
+                   'rgba(38, 211, 211,0.5)',
+                   'rgba(247, 7, 55, 0.5)',
+                   'rgba(236,242,63,0.5)',
+
+               ],
+               borderColor:  [
+                   'rgb(255,165,0,0.80)',
+                   'rgba(38, 211, 211,0.80)',
+                   'rgba(247, 7, 55, 0.80)',
+                   'rgba(236,242,63,0.80)',
+
+               ],
+               hoverBackgroundColor: [
+                   'rgb(255,165,0,0.80)',
+                   'rgba(38, 211, 211,0.80)',
+                   'rgba(247, 7, 55, 0.80)',
+                   'rgba(236,242,63,0.80)',
+
+               ],
+       
+           }],
+           
+   }
+
+   const options = {
+    legend: {
+        position:'right',
+        padding:20,
+        labels: {
+            fontSize:15,
+            fontColor:"black",
+            fontWeight:'bold'
+        }
+    }
+   }
+   return {data,options}
+}

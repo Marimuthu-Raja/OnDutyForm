@@ -40,7 +40,7 @@ export default class RecordList extends Component {
                             </Header>
                         </Segment>
                     </Container>
-                {forms.map(form=> form.teacher_id === localStorage.getItem('teacherid') &&  <Records form={form} availed={teacherData.odavailed}/>)}     
+                {forms.map(form=> form.Email === teacherData.Email &&  <Records form={form} availed={teacherData.odavailed}/>)}     
             </>
         )
     }

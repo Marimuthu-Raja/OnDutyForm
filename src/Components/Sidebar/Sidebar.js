@@ -8,14 +8,14 @@ import './topbar.css'
 
 export default function VerticalSidebar(props){
 
-  const [visible,setvisible] = useState(true)
+  const [visible,setvisible] = useState(false)
 
   return(
   <>
   <Sidebar.Pushable as='Segment'>
     <Sidebar
       as={Menu}
-      animation="push"
+      animation="overlay"
       direction="left"
       icon='labeled'
       vertical
@@ -23,6 +23,9 @@ export default function VerticalSidebar(props){
       inverted
       width='thin'
     >
+      <div>
+        <Icon name='times' inverted size='large' onClick={()=>setvisible(!visible)} style={{paddingLeft:'80px',cursor:'pointer'}}/>
+      </div>
       <Menu.Item header>
         <Image src={Logo} style={{width:"100px",height:"100px"}}/>
       </Menu.Item>
@@ -35,14 +38,15 @@ export default function VerticalSidebar(props){
             </Menu.Item>
         </Link>
       )}
-      
+     
     </Sidebar>
-
-    <Sidebar.Pusher>
-      <div className="topBar" style={{display:"flex"}}>
-          <Icon name='sidebar' inverted size='big' onClick={()=>setvisible(!visible)} style={{paddingTop:"15px",paddingLeft:"15px",cursor:'pointer'}}/>
-          <Image src={newlogo} style={{marginLeft:"5%"}}/>
+    <div className="topBar" style={{display:"flex"}}>
+          <Icon name='sidebar' inverted size='big' onClick={()=>setvisible(!visible)} style={{paddingTop:"15px",paddingLeft:"25px",cursor:'pointer'}}/>
+          
+          {/* <Image src={newlogo} style={{marginLeft:"5%"}}/> */}
       </div>
+    <Sidebar.Pusher>
+      
       <div style={{backgroundColor:'#c3c3c3',height:'93vh',overflow:'auto'}}>
         {props.children}
       </div>

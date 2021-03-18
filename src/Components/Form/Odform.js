@@ -26,7 +26,7 @@ export default class Odform extends Component {
     componentDidMount(){
         teachers.doc(localStorage.getItem('teacherid')).get().then(res=>{
             const teacherData = res.data()
-            this.setState({odavailed:teacherData.odavailed})
+            this.setState({teacherData,odavailed:teacherData.odavailed})
         })
     }
     onChange = (e) =>{
@@ -37,8 +37,9 @@ export default class Odform extends Component {
     Submit = () =>{
         const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData} = this.state
         const data = {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,
-                    accepted:true,
+                    accepted:false,
                     rejected:false,
+                    pending:true,
                     Email:teacherData.Email
                 }
 

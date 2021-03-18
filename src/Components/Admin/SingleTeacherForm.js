@@ -27,13 +27,13 @@ export default class SingleTeacherForm extends Component {
 
     HandleSuccess = (form) =>{
 
-        teacherForms.doc(form.id).update({accepted:true})
+        teacherForms.doc(form.id).update({accepted:true,pending:false})
         Alert("success","Success!","OD Form Accepted")
         this.props.formload()
     }
 
     HandleReject = (form) =>{
-        teacherForms.doc(form.id).update({rejected:true})
+        teacherForms.doc(form.id).update({rejected:true,pending:false})
         Alert("warning","Form Rejected!")
         this.props.formload()
     }
