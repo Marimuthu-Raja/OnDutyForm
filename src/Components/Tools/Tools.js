@@ -55,7 +55,7 @@ export const studentsidebar = [
     }
 ]
 
-export const adminsidebar = [
+export const principalsidebar = [
     {
         name:'Dashboard',
         icon:'tv',
@@ -77,9 +77,31 @@ export const adminsidebar = [
         to:'/studentlogout'
     }
 ]
+export const adminsidebar = [
+    {
+        name:'Add Student',
+        icon:'student',
+        to:'/add-students'
+    },
+    {
+        name:'Add Teacher',
+        icon:'user',
+        to:'/add-teachers'
+    },
+    {
+        name:'Add Department',
+        icon:'dashboard',
+        to:'/add-dept'
+    },
+    {
+        name:'Log Out',
+        icon:'log out',
+        to:'/studentlogout'
+    }
+]
 
 
-export const CalculateReport = (total,accepted,rejected,pending) => {
+export const CalculateChart = (total,accepted,rejected,pending) => {
     const data= { 
         labels: [
             "Total",

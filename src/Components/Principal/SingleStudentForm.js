@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Record from '../Student/Records'
-import {Button,Container,Segment,Header} from 'semantic-ui-react'
+import {Button,Container,Segment,Header,Grid} from 'semantic-ui-react'
 import {Alert} from '../Tools/Tools'
 import {studentForms, students} from '../FireBase/Firbase'
 import { firebaseLooper } from '../FireBase/FirebaseLooper'
@@ -52,22 +52,29 @@ export default class SingleStudentForm extends Component {
         const {form} = this.props
         return (
             <div>
-                <Container style={{marginTop:'20px'}}>
-                <Segment>
-                <Container>
-                        <Segment style={{marginTop:'20px'}} raised>
+                <Segment style={{height:'93vh',overflow:'auto'}}>
+                    <Container>
+                        
                             <Header as='h2' textAlign='center' color='teal'>
                                Application for On Duty 
                             </Header>
-                        </Segment>
-                    </Container>
                     <Record form={form} availed={this.state.studentData.availed}/>
-                    <div style={{textAlign:'center',marginTop:"20px"}}>
-                        <Button color='green' size="large" onClick={()=>this.HandleSuccess(form)}>Accept</Button>
-                        <Button color='red' size="large" onClick={()=>this.HandleReject(form)}>Reject</Button>
-                    </div>
-                </Segment>
+                    <Container>
+                            <Segment raised>
+                            <Grid columns={2}>
+                                <Grid.Column>
+                                    <Button color='teal' size="large" fluid onClick={()=>this.HandleSuccess(form)}>Accept</Button>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Button color='red' size="large" fluid onClick={()=>this.HandleReject(form)}>Reject</Button>
+                                </Grid.Column>
+
+                            </Grid>
+                            </Segment>
+                        </Container>
                 </Container>
+                </Segment>
+                
                
             </div>
         )

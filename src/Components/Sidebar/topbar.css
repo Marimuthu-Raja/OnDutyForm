@@ -1,6 +1,6 @@
 .topBar{
     height: 7vh;
-    background: linear-gradient(to right, #03a79e,#029196) ;
+    background: #03a79e;
 }
 a{
     text-decoration: none;

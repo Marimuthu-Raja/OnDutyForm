@@ -1,14 +1,14 @@
 import React,{useState} from 'react'
 import {Icon,Menu,Sidebar,Image} from 'semantic-ui-react'
 import Logo from '../short-logo.png'
-import newlogo from '../logo.png'
+// import newlogo from '../logo.png'
 import {Link} from 'react-router-dom'
 import './topbar.css'
 
 
 export default function VerticalSidebar(props){
 
-  const [visible,setvisible] = useState(false)
+  const [visible,setvisible] = useState(true)
 
   return(
   <>

@@ -117,6 +117,19 @@ export default function Records (props) {
                                             </Header>
                                         </Grid.Column>
                                    </Grid>
+                                   <Grid columns={2}>
+                                        <Grid.Column>
+                                            <Header as='h5' textAlign='center'>
+                                               Form Status
+                                            </Header>    
+                                        </Grid.Column>
+
+                                        <Grid.Column>
+                                            <Header as='h5' style={{color:`${props.form.accepted === true?"green":props.form.rejected === true?"red":"orange"}`}}>
+                                                {props.form.accepted === true?"Accepted":props.form.rejected === true?"Rejected":"Pending"}
+                                            </Header>
+                                        </Grid.Column>
+                                    </Grid>
                                 </div>
                         </Segment>
                         </Container>

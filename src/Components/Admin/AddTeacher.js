@@ -3,7 +3,8 @@ import { Container, Form, Header, Segment,Button } from 'semantic-ui-react'
 import {teachers} from '../FireBase/Firbase'
 import {Alert} from '../Tools/Tools'
 
-export default class EditProfile extends Component {
+
+export default class AddTeacher extends Component {
     constructor(props) {
         super(props)
     
@@ -25,7 +26,7 @@ export default class EditProfile extends Component {
 
     submit = () =>{
         const {Name,phone,Email,Dept,address,Designation,qualification} = this.state
-        teachers.doc(localStorage.getItem('teacherid')).update({Name,phone,Email,Dept,address,Designation,qualification}).then(()=>Alert("success","Success!","Profile Updated"))
+        teachers.add({Name,phone,Email,Dept,address,Designation,qualification}).then(()=>Alert("success","Success!","Teacher Added"))
     }
 
     render() {
@@ -35,36 +36,36 @@ export default class EditProfile extends Component {
                 <Container style={{marginTop:'40px'}}>
                     <Segment>
                         <Header as='h2'textAlign='center' color='teal'>
-                            Edit Profile
+                            Add Teacher
                         </Header>
                         
                             <Form style={{padding:"20px",marginTop:"20px"}} onSubmit={this.submit}>
 
-                            <Form.Input type="text" placeholder="Name" value={Name} label='Name' name='Name' onChange={this.onChange}/>
+                            <Form.Input type="text" placeholder="Name" value={Name} label='Name' name='Name' required onChange={this.onChange}/>
 
-                            <Form.Input type="text" placeholder="Phone Number" value={phone} label='Phone Number' name='phone' onChange={this.onChange}/>
+                            <Form.Input type="text" placeholder="Phone Number" value={phone} label='Phone Number' required name='phone' onChange={this.onChange}/>
 
 
-                            <Form.Field>
-                                <label>Select Department</label>
-                                <select name='Dept' className='form-control' onChange={this.onChange}>
+                            <Form.Field required>
+                                <label >Select Department</label>
+                                <select name='Dept' className='form-control' required onChange={this.onChange}>
                                     <option value=''disabled selected>Select Department</option>
                                     <option value='cs'>CS</option>
                                     <option value='commerce'>Commerce</option>
                                 </select>
                             </Form.Field>
                             
-                            <Form.Input type="email" placeholder="Email" value={Email} label='Email' name='Email' onChange={this.onChange}/>
+                            <Form.Input type="email" placeholder="Email" value={Email} label='Email' name='Email'required onChange={this.onChange}/>
 
-                            <Form.Input type="text" placeholder="Designation" value={Designation} label='Designation' name='Designation' onChange={this.onChange}/>
+                            <Form.Input type="text" placeholder="Designation" value={Designation} label='Designation' required name='Designation' onChange={this.onChange}/>
 
-                            <Form.Input type="text" placeholder="Qualification" value={qualification} label='Qualification' name='qualification' onChange={this.onChange}/>
+                            <Form.Input type="text" placeholder="Qualification" value={qualification} label='Qualification' required name='qualification' onChange={this.onChange}/>
                             
-                            <Form.Input type="text" placeholder="Address" value={address} label='Address' name='address' onChange={this.onChange}/>
+                            <Form.Input type="text" placeholder="Address" value={address} label='Address' name='address' required onChange={this.onChange}/>
                             
                             <div style={{textAlign:'center',marginTop:"45px"}}>
-                                       <Button color='teal' size='large'>Update</Button>
-                                    </div>
+                                <Button color='teal' size='large'>Add Teacher</Button>
+                            </div>
                             
                             </Form>
                     </Segment>

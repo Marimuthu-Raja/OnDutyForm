@@ -33,16 +33,15 @@ export default class Teacherforms extends Component {
         return (
             <>
             {renderform?<SingleTeacherForm formload={this.renderform} form={form}/>:
-                <Container>
-                    <Segment style={{marginTop:'20px'}}>
+                <>
+                    <Segment style={{height:'93vh',overflow:'auto'}}>
                         <Header as='h2' color='teal' textAlign='center'>Requested OD Forms - Teachers</Header>
-                    </Segment>
-                    <Segment>
-                    <Container text style={{marginTop:'20px'}}>
+                    <Container style={{marginTop:'40px'}}>
+                    <Segment raised style={{minHeight:"700px"}}>
                     <Card.Group>
                     {allforms.map(form=> (form.accepted === false && form.rejected === false) &&
                                 <Card>
-                                    <Card.Content>
+                                    <Card.Content style={{padding:"30px"}}>
                                         <Image
                                         floated='right'
                                         size='mini'
@@ -63,9 +62,10 @@ export default class Teacherforms extends Component {
                                 </Card>
                                 )}
                             </Card.Group>
+                            </Segment>
                             </Container>
                             </Segment>
-                </Container>}
+                </>}
             </>
         )
     }

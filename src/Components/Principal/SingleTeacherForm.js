@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button,Container,Segment,Header} from 'semantic-ui-react'
+import {Button,Container,Segment,Header,Grid} from 'semantic-ui-react'
 import Record from '../Teacher/Records'
 import {Alert} from '../Tools/Tools'
 import {teacherForms,teachers} from '../FireBase/Firbase'
@@ -26,8 +26,8 @@ export default class SingleTeacherForm extends Component {
 
 
     HandleSuccess = (form) =>{
-
-        teacherForms.doc(form.id).update({accepted:true,pending:false})
+        const odavailed = this.state.teacherData.odavailed+parseInt(form.req_days)
+        teacherForms.doc(form.id).update({accepted:true,pending:false,odavailed})
         Alert("success","Success!","OD Form Accepted")
         this.props.formload()
     }
@@ -42,22 +42,27 @@ export default class SingleTeacherForm extends Component {
         const {form} = this.props
         return (
             <div>
-                <Container style={{marginTop:'20px'}}>
-                <Segment>
-                <Container>
-                        <Segment style={{marginTop:'20px'}} raised>
+                <Segment style={{height:'93vh',overflow:'auto'}}>
                             <Header as='h2' textAlign='center' color='teal'>
                                Application for On Duty 
                             </Header>
-                        </Segment>
-                    </Container>
                     <Record form={form} availed={this.state.teacherData.odavailed}/>
-                    <div style={{textAlign:'center',marginTop:"20px"}}>
-                        <Button color='green' size="large" onClick={()=>this.HandleSuccess(form)}>Accept</Button>
-                        <Button color='red' size="large" onClick={()=>this.HandleReject(form)}>Reject</Button>
-                    </div>
+                   
+                        <Container>
+                            <Segment raised>
+                            <Grid columns={2}>
+                                <Grid.Column>
+                                    <Button color='teal' size="large" fluid onClick={()=>this.HandleSuccess(form)}>Accept</Button>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Button color='red' size="large" fluid onClick={()=>this.HandleReject(form)}>Reject</Button>
+                                </Grid.Column>
+
+                            </Grid>
+                            </Segment>
+                        </Container>
+                    
                 </Segment>
-                </Container>
             </div>
         )
     }

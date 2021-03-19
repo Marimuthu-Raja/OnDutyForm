@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Segment,Image,Header, Divider, Container,Button } from 'semantic-ui-react'
 import {students} from '../FireBase/Firbase'
+import {Link} from 'react-router-dom'
 export default class Profile extends Component {
     constructor(props) {
         super(props)
@@ -116,7 +117,7 @@ export default class Profile extends Component {
                                     
                                 </div>
                                 <div style={{textAlign:'center',marginTop:"45px"}}>
-                                        <Button color='teal'>Edit</Button>
+                                       <Link to='student-edit-profile'> <Button color='teal'>Edit</Button></Link>
                                     </div>
                             </Segment>
                         </Container>

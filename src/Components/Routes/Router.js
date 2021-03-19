@@ -3,17 +3,21 @@ import {Route} from 'react-router-dom'
 import Login from '../Auth/Login'
 import Odform from '../Form/Odform'
 import TeacherProfile from '../Teacher/Profile'
+import TeacherEditProfile from '../Teacher/EditProfile'
 import Records from '../Teacher/RecordList'
 import TeacherLogout from '../Teacher/Logout'
-import { teachersidebar,studentsidebar,adminsidebar } from '../Tools/Tools'
+import { teachersidebar,studentsidebar,adminsidebar,principalsidebar } from '../Tools/Tools'
 import Sidebar from '../Sidebar/Sidebar'
 import StudentProfile from '../Student/Profile'
+import StudentEditProfile from '../Student/EditProfile'
 import StudentRecords from '../Student/RecordList'
 import Studentodform from '../Student/Form'
 import StudentLogout from '../Student/Logout'
-import Dashboard from '../Admin/Dashboard'
-import TeacherForms from '../Admin/Teacherforms'
-import StudentForms from '../Admin/StudenForm'
+import Dashboard from '../Principal/Dashboard'
+import TeacherForms from '../Principal/Teacherforms'
+import StudentForms from '../Principal/StudenForm'
+import AddStudents from '../Admin/AddStudents'
+import AddTeachers from '../Admin/AddTeacher'
 export default class Router extends Component {
     render() {
         return (
@@ -34,6 +38,11 @@ export default class Router extends Component {
                         <Records/>
                     </Sidebar>
                 </Route>
+                <Route exact path='/teacher-edit-profile'>
+                    <Sidebar Menu={teachersidebar}>
+                        <TeacherEditProfile/>
+                    </Sidebar>
+                </Route>
                 <Route exact path='/teacherlogout' component={TeacherLogout}/>
 
 
@@ -52,22 +61,43 @@ export default class Router extends Component {
                         <StudentRecords/>
                     </Sidebar>
                 </Route>
+                <Route exact path='/student-edit-profile'>
+                    <Sidebar Menu={studentsidebar}>
+                        <StudentEditProfile/>
+                    </Sidebar>
+                </Route>
                 <Route exact path='/studentlogout' component={StudentLogout}/>
 
 
                 <Route exact path='/dashboard'>
-                    <Sidebar Menu={adminsidebar}>
+                    <Sidebar Menu={principalsidebar}>
                         <Dashboard/>
                     </Sidebar>
                 </Route>
                 <Route exact path='/teacher-forms'>
-                    <Sidebar Menu={adminsidebar}>
+                    <Sidebar Menu={principalsidebar}>
                         <TeacherForms/>
                     </Sidebar>
                 </Route>
                 <Route exact path='/student-forms'>
-                    <Sidebar Menu={adminsidebar}>
+                    <Sidebar Menu={principalsidebar}>
                         <StudentForms/>
+                    </Sidebar>
+                </Route>
+
+                <Route exact path='/add-students'>
+                    <Sidebar Menu={adminsidebar}>
+                        <AddStudents/>
+                    </Sidebar>
+                </Route>
+                <Route exact path='/add-teachers'>
+                    <Sidebar Menu={adminsidebar}>
+                        <AddTeachers/>
+                    </Sidebar>
+                </Route>
+                <Route exact path='/add-dept'>
+                    <Sidebar Menu={adminsidebar}>
+                        
                     </Sidebar>
                 </Route>
             </div>

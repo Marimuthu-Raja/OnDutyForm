@@ -13,6 +13,8 @@ export default class Login extends Component {
         this.state = {
              admin:'admin',
              apassword:'password',
+             principal:'principal',
+             ppassword:'principal#123',
              username:'',
              password:'',
              studentData:[],
@@ -38,7 +40,7 @@ export default class Login extends Component {
     }
 
     login = () =>{
-        const {username,password,admin,apassword,studentData,teacherData} = this.state
+        const {username,password,admin,apassword,studentData,teacherData,principal,ppassword} = this.state
 
         const isStudent = studentData.find(student=> student.RegNo === username && student.DOB === password)
 
@@ -57,8 +59,11 @@ export default class Login extends Component {
             this.props.history.push('/od-form')
         }
 
-        else if(username === admin && password === apassword){
+        else if(username === principal && password === ppassword){
             this.props.history.push('/dashboard')
+        }
+        else if(username === admin && password === apassword){
+            this.props.history.push('/add-students')
         }
         else{
             Alert('error','Oops!','Check Username and Password')
@@ -83,7 +88,7 @@ export default class Login extends Component {
                         icon='lock'
                         iconPosition='left'
                         placeholder='Password'
-                        type='password'
+                        type='text'
                         name='password'
                         onChange={this.HandleInput}
                     />

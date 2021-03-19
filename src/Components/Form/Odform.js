@@ -18,6 +18,7 @@ export default class Odform extends Component {
              attendance:null,
              certificate:null,
              odavailed:null,
+             req_days:'',
              affected_date:'',
              venue:'',
              teacherData:'',
@@ -35,8 +36,8 @@ export default class Odform extends Component {
     }
 
     Submit = () =>{
-        const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData} = this.state
-        const data = {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,
+        const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData,req_days} = this.state
+        const data = {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,req_days,
                     accepted:false,
                     rejected:false,
                     pending:true,
@@ -47,7 +48,7 @@ export default class Odform extends Component {
         Alert('success','Success!','Form Request Sent')
     }
     render() {
-        const {name,designation,from_date,to_date,purpose,odavailed,affected_date,venue} = this.state
+        const {name,designation,from_date,to_date,purpose,odavailed,affected_date,venue,req_days} = this.state
         return (
                     <Grid centered columns={2}>
                         <Grid.Column>
@@ -88,6 +89,8 @@ export default class Odform extends Component {
                                         <label>No. of Onduty Availed So far</label>
                                         <Header as='h6'>{odavailed}</Header>
                                     </Form.Field>
+
+                                    <Form.Input type="text" placeholder="Required Days" name='req_days' value={req_days} label='Require Days' required onChange={this.onChange}/>
 
                                     <Form.Group widths={2}>
                                         <Form.Input type="file" placeholder="" label='Attendance Certificate' required onChange={this.onChange}/>
