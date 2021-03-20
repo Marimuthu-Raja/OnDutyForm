@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Form, Header, Segment,Button } from 'semantic-ui-react'
 import {teachers} from '../FireBase/Firbase'
+import { firebaseLooper } from '../FireBase/FirebaseLooper'
 import {Alert} from '../Tools/Tools'
 
 export default class EditProfile extends Component {
@@ -19,6 +20,23 @@ export default class EditProfile extends Component {
         }
     }
     
+    componentDidMount(){
+        teachers.doc(localStorage.getItem('teacherid')).get().then(res=>{
+            const TeacherData = res.data()
+            if(TeacherData !== undefined){
+                this.setState({
+                    Name:TeacherData.Name,
+                    phone:TeacherData.phone,
+                    Email:TeacherData.Email,
+                    Dept:TeacherData.Dept,
+                    address:TeacherData.address,
+                    Designation:TeacherData.Designation,
+                    qualification:TeacherData.qualification,
+
+                })
+            }
+        })
+    }
     onChange=(e) =>{
         this.setState({[e.target.name]:e.target.value})
     }

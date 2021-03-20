@@ -47,7 +47,7 @@ export default function VerticalSidebar(props){
       </div>
     <Sidebar.Pusher>
       
-      <div style={{backgroundColor:'#c3c3c3',height:'93vh',overflow:'auto'}}>
+      <div style={{backgroundColor:'white',height:'93vh',overflow:'auto'}}>
         {props.children}
       </div>
     </Sidebar.Pusher>

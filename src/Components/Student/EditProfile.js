@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Form, Header, Segment,Button } from 'semantic-ui-react'
 import {students} from '../FireBase/Firbase'
 import {Alert} from '../Tools/Tools'
-
+import {firebaseLooper} from '../FireBase/FirebaseLooper'
 export default class EditProfile extends Component {
     constructor(props) {
         super(props)
@@ -17,6 +17,21 @@ export default class EditProfile extends Component {
         }
     }
     
+    componentDidMount(){
+        students.doc(localStorage.getItem('studentid')).get().then(res=>{
+            const StudentData = res.data()
+            if(StudentData !== undefined){
+                this.setState({
+                    Name:StudentData.Name,
+                    RegNo:StudentData.RegNo,
+                    Email:StudentData.Email,
+                    Dept:StudentData.Dept,
+                    address:StudentData.address,
+                    DOB:StudentData.DOB,
+                })
+            }
+        })
+    }
     onChange=(e) =>{
         this.setState({[e.target.name]:e.target.value})
     }

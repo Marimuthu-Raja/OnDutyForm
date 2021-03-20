@@ -16,7 +16,8 @@ export default class AddTeacher extends Component {
              address:'',
              Designation:'',
              qualification:'',
-
+             odavailed:0,
+             password:'',
         }
     }
     
@@ -25,16 +26,16 @@ export default class AddTeacher extends Component {
     }
 
     submit = () =>{
-        const {Name,phone,Email,Dept,address,Designation,qualification} = this.state
-        teachers.add({Name,phone,Email,Dept,address,Designation,qualification}).then(()=>Alert("success","Success!","Teacher Added"))
+        const {Name,phone,Email,Dept,address,Designation,qualification,odavailed,password} = this.state
+        teachers.add({Name,phone,Email,Dept,address,Designation,qualification,odavailed,password}).then(()=>Alert("success","Success!","Teacher Added"))
     }
 
     render() {
-        const {Name,phone,Email,address,Designation,qualification}=this.state
+        const {Name,phone,Email,address,Designation,qualification,password}=this.state
         return (
             <div>
                 <Container style={{marginTop:'40px'}}>
-                    <Segment>
+                    <Segment raised>
                         <Header as='h2'textAlign='center' color='teal'>
                             Add Teacher
                         </Header>
@@ -55,6 +56,8 @@ export default class AddTeacher extends Component {
                                 </select>
                             </Form.Field>
                             
+                            <Form.Input type="text" placeholder="Password" value={password} label='Password' name='password' required onChange={this.onChange}/>
+
                             <Form.Input type="email" placeholder="Email" value={Email} label='Email' name='Email'required onChange={this.onChange}/>
 
                             <Form.Input type="text" placeholder="Designation" value={Designation} label='Designation' required name='Designation' onChange={this.onChange}/>
