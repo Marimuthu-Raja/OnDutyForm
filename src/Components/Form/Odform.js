@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid,Form, Segment, Header,Button } from 'semantic-ui-react'
-import {teacherForms,teachers} from '../FireBase/Firbase'
+import {teacherForms,teachers,storage} from '../FireBase/Firbase'
 import {Alert} from '../Tools/Tools'
 import './Odform.css'
 
@@ -35,8 +35,14 @@ export default class Odform extends Component {
         console.log(e)
     }
 
+    onChangeImage = e =>{
+        if(e.target.files[0] !== null){
+            this.setState({[e.target.name]:e.target.files[0]})
+        }
+    }
+
     Submit = () =>{
-        const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData,req_days} = this.state
+        const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData,req_days,attendance,certificate} = this.state
         const data = {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,req_days,
                     accepted:false,
                     rejected:false,
@@ -45,6 +51,10 @@ export default class Odform extends Component {
                 }
 
         teacherForms.add(data)
+        
+        storage.ref(`/Certificates/${attendance.name}`).put(attendance)
+        storage.ref(`/Certificates/${certificate.name}`).put(certificate)
+
         Alert('success','Success!','Form Request Sent')
     }
     render() {
@@ -93,8 +103,8 @@ export default class Odform extends Component {
                                     <Form.Input type="text" placeholder="Required Days" name='req_days' value={req_days} label='Require Days' required onChange={this.onChange}/>
 
                                     <Form.Group widths={2}>
-                                        <Form.Input type="file" placeholder="" label='Attendance Certificate' required onChange={this.onChange}/>
-                                        <Form.Input type="file" placeholder="" label='Certificate Document' required onChange={this.onChange}/>
+                                        <Form.Input type="file" placeholder="" label='Attendance Certificate' name='attendance' required onChange={this.onChangeImage}/>
+                                        <Form.Input type="file" placeholder="" label='Certificate Document' name='certificate' required onChange={this.onChangeImage}/>
                                     </Form.Group>
 
                                     <Form.Input type="date" label='Work Affected Days' value={affected_date} name='affected_date' required onChange={this.onChange}/>

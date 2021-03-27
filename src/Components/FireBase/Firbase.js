@@ -15,8 +15,10 @@ const firebaseConfig = {
 
 
   export const db = firebase.firestore()
+  export const storage = firebase.storage()
 
   export const students = db.collection('Students')
   export const teachers = db.collection('Teachers')
   export const studentForms = db.collection('studentForms')
   export const teacherForms = db.collection('teacherForm')
+  export const departments = db.collection('Department')

@@ -18,6 +18,7 @@ import TeacherForms from '../Principal/Teacherforms'
 import StudentForms from '../Principal/StudenForm'
 import AddStudents from '../Admin/AddStudents'
 import AddTeachers from '../Admin/AddTeacher'
+import Manage from '../Admin/Manage'
 export default class Router extends Component {
     render() {
         return (
@@ -97,7 +98,7 @@ export default class Router extends Component {
                 </Route>
                 <Route exact path='/add-dept'>
                     <Sidebar Menu={adminsidebar}>
-                        
+                        <Manage/>
                     </Sidebar>
                 </Route>
             </div>

@@ -89,7 +89,7 @@ export const adminsidebar = [
         to:'/add-teachers'
     },
     {
-        name:'Add Department',
+        name:'Manage',
         icon:'dashboard',
         to:'/add-dept'
     },
