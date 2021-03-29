@@ -8,7 +8,7 @@ import './topbar.css'
 
 export default function VerticalSidebar(props){
 
-  const [visible,setvisible] = useState(true)
+  const [visible,setvisible] = useState(false)
 
   return(
   <>

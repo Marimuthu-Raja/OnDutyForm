@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Segment,Header,Grid, Form, Button,Card, Divider} from 'semantic-ui-react'
-import {teacherForms,teachers,studentForms,students} from '../FireBase/Firbase'
+import {teacherForms,teachers,studentForms,students, departments} from '../FireBase/Firbase'
 import { firebaseLooper } from '../FireBase/FirebaseLooper'
 import {Doughnut, Pie} from 'react-chartjs-2'
 import {CalculateChart} from '../Tools/Tools'
@@ -25,6 +25,7 @@ export default class Dashboard extends Component {
              acceptedStudentFormsCount:null,
              acceptedTeacherFormsCount:null,
              ReportData:{},
+             depts:[],
              StudentReportData:{},
         }
     }
@@ -35,6 +36,11 @@ export default class Dashboard extends Component {
             const studentForm = firebaseLooper(res)
             const totalStudentForms = studentForm.length
             this.setState({studentForm,totalStudentForms})
+        })
+
+        departments.get().then(res=>{
+            const depts = firebaseLooper(res)
+            this.setState({depts})
         })
 
         teacherForms.get().then(res=>{
@@ -172,7 +178,7 @@ export default class Dashboard extends Component {
 
 
     render() {
-        const {from_date,to_date,category,ReportData,studentData,teacherData,StudentReportData,totalStudentForms,TotalTeacherForms,acceptedTeacherFormsCount,acceptedStudentFormsCount} = this.state
+        const {from_date,to_date,category,ReportData,studentData,teacherData,StudentReportData,totalStudentForms,TotalTeacherForms,acceptedTeacherFormsCount,acceptedStudentFormsCount,depts} = this.state
         return (
             <>
                 
@@ -256,8 +262,7 @@ export default class Dashboard extends Component {
                                        <label>Select Department</label>
                                        <select className='form-control' name='dept' onChange={this.onChange}>
                                            <option disabled selected>Select Department</option>
-                                           <option value='cs'>CS</option>
-                                           <option value='commerce'>Commerce</option>
+                                           {depts.map(dept=> <option value={dept.Dept}>{dept.Dept}</option>)}
                                        </select>
                                    </Form.Field>
                                     <Form.Field>
@@ -275,8 +280,7 @@ export default class Dashboard extends Component {
                                        <label>Select Department</label>
                                        <select className='form-control' name='dept' onChange={this.onChange}>
                                            <option disabled selected>Select Department</option>
-                                           <option value='cs'>CS</option>
-                                           <option value='commerce'>Commerce</option>
+                                            {depts.map(dept=> <option value={dept.Dept}>{dept.Dept}</option>)}
                                        </select>
                                    </Form.Field>
                                     <Form.Field>
@@ -292,8 +296,7 @@ export default class Dashboard extends Component {
                                      <label>Select Department</label>
                                      <select className='form-control' name='dept' onChange={this.onChange}>
                                          <option disabled selected>Select Department</option>
-                                         <option value='cs'>CS</option>
-                                         <option value='commerce'>Commerce</option>
+                                            {depts.map(dept=> <option value={dept.Dept}>{dept.Dept}</option>)}
                                      </select>
                                     </Form.Field>
                                     <Form.Group widths={2}>
@@ -309,7 +312,7 @@ export default class Dashboard extends Component {
                                         <label>Select Student</label>
                                         <select className='form-control' name='student' onChange={this.onChange}>
                                             <option disabled selected>Select Student</option>
-                                            <option value='all'>All Students</option>
+                                                <option value='all'>All Students</option>
                                             {studentData.map(student=> <option value={student.RegNo}>{student.Name}</option>)}
                                         </select>
                                     </Form.Field>

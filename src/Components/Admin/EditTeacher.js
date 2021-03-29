@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Form, Header, Segment,Button } from 'semantic-ui-react'
-import {teachers} from '../FireBase/Firbase'
+import {departments, teachers} from '../FireBase/Firbase'
 import { firebaseLooper } from '../FireBase/FirebaseLooper'
 import {Alert} from '../Tools/Tools'
 
@@ -16,11 +16,16 @@ export default class EditTeacher extends Component {
              address:'',
              Designation:'',
              qualification:'',
+             depts:[],
 
         }
     }
     
     componentDidMount(){
+        departments.get().then(res=>{
+            const depts = firebaseLooper(res)
+            this.setState({depts})
+        })
         teachers.doc(this.props.id).get().then(res=>{
             const TeacherData = res.data()
             if(TeacherData !== undefined){
@@ -49,7 +54,7 @@ export default class EditTeacher extends Component {
         })
     }
     render() {
-        const {Name,phone,Email,address,Designation,qualification}=this.state
+        const {Name,phone,Email,address,Designation,qualification,depts}=this.state
         return (
             <div>
                 <Container style={{marginTop:'40px'}}>
@@ -69,8 +74,7 @@ export default class EditTeacher extends Component {
                                 <label>Select Department</label>
                                 <select name='Dept' className='form-control' onChange={this.onChange}>
                                     <option value=''disabled selected>Select Department</option>
-                                    <option value='cs'>CS</option>
-                                    <option value='commerce'>Commerce</option>
+                                        {depts.map(dept=> <option value={dept.Dept}>{dept.Dept}</option>)}
                                 </select>
                             </Form.Field>
                             

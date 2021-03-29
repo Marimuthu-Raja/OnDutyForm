@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Container, Form, Header, Segment,Button, Grid ,Divider} from 'semantic-ui-react'
-import {students} from '../FireBase/Firbase'
+import {departments, students} from '../FireBase/Firbase'
 import {Alert} from '../Tools/Tools'
 import XLSX from 'xlsx'
+import {firebaseLooper} from '../FireBase/FirebaseLooper'
 import {ExcelDateToJSDate} from '../Tools/ExceltoJSON'
 import Swal from 'sweetalert2'
 
@@ -19,10 +20,16 @@ export default class AddStudents extends Component {
              DOB:'',
              JSON_data:'',
              availed:0,
-             
+             depts:[],
         }
     }
-    
+    componentDidMount(){
+        departments.get().then(res=>{
+            const depts = firebaseLooper(res)
+            this.setState({depts})
+        })
+    }
+
     onChange=(e) =>{
         this.setState({[e.target.name]:e.target.value})
     }
@@ -68,7 +75,7 @@ export default class AddStudents extends Component {
     }
 
     render() {
-        const {Name,RegNo,Email,address,DOB}=this.state
+        const {Name,RegNo,Email,address,DOB,depts}=this.state
         return (
             <div>
                 <Container style={{marginTop:'40px'}}>
@@ -90,8 +97,7 @@ export default class AddStudents extends Component {
                                 <label >Select Department</label>
                                 <select name='Dept' className='form-control' required onChange={this.onChange}>
                                     <option value=''disabled selected>Select Department</option>
-                                    <option value='cs'>CS</option>
-                                    <option value='commerce'>Commerce</option>
+                                        {depts.map(dept=> <option value={dept.Dept}>{dept.Dept}</option>)}
                                 </select>
                             </Form.Field>
                             

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Form, Header, Segment,Button } from 'semantic-ui-react'
-import {students} from '../FireBase/Firbase'
+import {students,departments} from '../FireBase/Firbase'
 import {Alert} from '../Tools/Tools'
 import {firebaseLooper} from '../FireBase/FirebaseLooper'
 export default class EditProfile extends Component {
@@ -14,10 +14,16 @@ export default class EditProfile extends Component {
              Dept:'',
              address:'',
              DOB:'',
+             depts:[],
         }
     }
     
     componentDidMount(){
+        departments.get().then(res=>{
+            const depts = firebaseLooper(res)
+            this.setState({depts})
+        })
+
         students.doc(localStorage.getItem('studentid')).get().then(res=>{
             const StudentData = res.data()
             if(StudentData !== undefined){
@@ -42,7 +48,7 @@ export default class EditProfile extends Component {
     }
 
     render() {
-        const {Name,RegNo,Email,address,DOB}=this.state
+        const {Name,RegNo,Email,address,DOB,depts}=this.state
         return (
             <div>
                 <Container style={{marginTop:'40px'}}>
@@ -62,8 +68,7 @@ export default class EditProfile extends Component {
                                 <label>Select Department</label>
                                 <select name='Dept' className='form-control' onChange={this.onChange}>
                                     <option value=''disabled selected>Select Department</option>
-                                    <option value='cs'>CS</option>
-                                    <option value='commerce'>Commerce</option>
+                                        {depts.map(dept=> <option value={dept.Dept}>{dept.Dept}</option>)}
                                 </select>
                             </Form.Field>
                             
