@@ -31,7 +31,14 @@ export default class Odform extends Component {
         })
     }
     onChange = (e) =>{
-        this.setState({[e.target.name]:e.target.value})
+        this.setState({[e.target.name]:e.target.value},()=>{
+            if(this.state.from_date !== '' && this.state.to_date !== ''){
+                const req_days=this.getDifferenceInDays(this.state.from_date,this.state.to_date);
+                this.setState({req_days});
+                console.log(req_days);
+                }
+        })
+       
         console.log(e)
     }
 
@@ -40,6 +47,15 @@ export default class Odform extends Component {
             this.setState({[e.target.name]:e.target.files[0]})
         }
     }
+
+    getDifferenceInDays=(from_date,to_date)=> {
+        const fromDate=new Date(from_date)
+        const toDate=new Date(to_date)
+        const diffInMs = fromDate - toDate
+        const output=Math.abs(diffInMs/(1000 * 60 * 60 * 24));
+        console.log(output)
+        return output;
+      }
 
     Submit = () =>{
         const {name,designation,from_date,to_date,natureofonduty,purpose,odavailed,affected_date,venue,teacherData,req_days,attendance,certificate} = this.state
@@ -59,6 +75,7 @@ export default class Odform extends Component {
     }
     render() {
         const {name,designation,from_date,to_date,purpose,odavailed,affected_date,venue,req_days} = this.state
+        
         return (
                     <Grid centered columns={2}>
                         <Grid.Column>
@@ -74,7 +91,7 @@ export default class Odform extends Component {
 
                                     <Form.Group widths={2}>
                                         <Form.Input type="date" label='From' name='from_date' value={from_date} required onChange={this.onChange}/>
-                                        <Form.Input type="date" label='To' name='to_date'value={to_date} required onChange={this.onChange}/>
+                                        <Form.Input type="date" label='To' name='to_date' value={to_date} required onChange={this.onChange}/>
                                     </Form.Group>
                                     
                                     <Form.Input type="text" placeholder="Purpose" name='purpose' value={purpose} label='Purpose of On Duty' required onChange={this.onChange}/>
@@ -94,14 +111,15 @@ export default class Odform extends Component {
                                     </Form.Field>
 
                                     <Form.Input type="text" placeholder="Venue" name='venue' value={venue} label='Venue' required onChange={this.onChange}/>
-
-                                    <Form.Field>
-                                        <label>No. of Onduty Availed So far</label>
-                                        <Header as='h6'>{odavailed}</Header>
+                                    
+                                    <Form.Field className='form-control' type='text'>
+                                    <h6>Remaining OnDuty Available : {odavailed} </h6>
                                     </Form.Field>
 
-                                    <Form.Input type="text" placeholder="Required Days" name='req_days' value={req_days} label='Require Days' required onChange={this.onChange}/>
-
+                                    <Form.Field className='form-control' type='text'>
+                                    <h6>Required Days : {this.state.req_days} </h6>
+                                    </Form.Field>
+                                    
                                     <Form.Group widths={2}>
                                         <Form.Input type="file" placeholder="" label='Attendance Certificate' name='attendance' required onChange={this.onChangeImage}/>
                                         <Form.Input type="file" placeholder="" label='Certificate Document' name='certificate' required onChange={this.onChangeImage}/>
