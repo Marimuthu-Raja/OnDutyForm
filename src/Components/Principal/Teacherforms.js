@@ -26,7 +26,9 @@ export default class Teacherforms extends Component {
 
     renderform = (form) =>{
         this.setState({renderform:!this.state.renderform,form})
-        this.componentDidMount()
+       this.componentDidMount()
+       this.componentDidMount()
+       this.componentDidMount()
      }
     render() {
         const {renderform,form,allforms} = this.state

@@ -19,7 +19,7 @@ export default class AddStudents extends Component {
              address:'',
              DOB:'',
              JSON_data:'',
-             availed:0,
+             odavailed:0,
              depts:[],
         }
     }
@@ -36,7 +36,7 @@ export default class AddStudents extends Component {
 
     submit = () =>{
         const {Name,RegNo,Email,Dept,address,DOB,odavailed} = this.state
-        students.doc(localStorage.getItem('studentid')).add({Name,RegNo,Email,Dept,address,DOB,odavailed}).then(()=>Alert("success","Success!","Student Added"))
+        students.add({Name,RegNo,Email,Dept,address,DOB,odavailed}).then(()=>Alert("success","Success!","Student Added"))
     }
 
     fileSelect = (e)=>{
@@ -63,8 +63,8 @@ export default class AddStudents extends Component {
             JSON_data.map(student=>{
                 const student_object ={...student,odavailed}
                 student_object['DOB']= ExcelDateToJSDate(student_object.DOB)
-                console.log(student_object)
                 students.add(student_object,odavailed)       //upload
+                return 0
             })
                 Swal.fire({
                 icon:"success",

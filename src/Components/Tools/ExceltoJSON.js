@@ -11,8 +11,8 @@ export const  ExcelDateToJSDate = (serial)=> {
  
     total_seconds -= seconds;
  
-    var hours = Math.floor(total_seconds / (60 * 60));
-    var minutes = Math.floor(total_seconds / 60) % 60;
+    // var hours = Math.floor(total_seconds / (60 * 60));
+    // var minutes = Math.floor(total_seconds / 60) % 60;
     if((date_info.getMonth()+1) < 10  && date_info.getDate() <10){
         return `0${date_info.getDate()}/0${date_info.getMonth()+1}/${date_info.getFullYear()}`
     }

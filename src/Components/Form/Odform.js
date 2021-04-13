@@ -74,7 +74,7 @@ export default class Odform extends Component {
         Alert('success','Success!','Form Request Sent')
     }
     render() {
-        const {name,designation,from_date,to_date,purpose,odavailed,affected_date,venue,req_days} = this.state
+        const {name,designation,from_date,to_date,purpose,odavailed,affected_date,venue} = this.state
         
         return (
                     <Grid centered columns={2}>

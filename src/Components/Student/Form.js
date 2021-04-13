@@ -33,7 +33,7 @@ export default class StudentOdForm extends Component {
                     Name:studentdata.Name,
                     Dept:studentdata.Dept,
                     RegNo:studentdata.RegNo,
-                    availed:studentdata.availed})
+                    availed:studentdata.odavailed})
             }
         })
 

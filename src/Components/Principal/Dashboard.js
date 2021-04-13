@@ -274,7 +274,10 @@ export default class Dashboard extends Component {
                                         </select>
                                     </Form.Field>
                                     </>
-                                    :category === 'teacher'?
+
+                                    :
+                                    category === 'teacher'?
+
                                     <>
                                     <Form.Field>
                                        <label>Select Department</label>
@@ -290,7 +293,9 @@ export default class Dashboard extends Component {
                                             <option value='all'>All Teachers</option>
                                             {teacherData.map(teacher=> <option value={teacher.Email}>{teacher.Name}</option>)}
                                         </select>
-                                    </Form.Field></>:
+                                    </Form.Field>
+                                    </>
+                                    :
                                     <>
                                      <Form.Field>
                                      <label>Select Department</label>

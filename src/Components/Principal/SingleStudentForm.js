@@ -58,7 +58,7 @@ export default class SingleStudentForm extends Component {
                             <Header as='h2' textAlign='center' color='teal'>
                                Application for On Duty 
                             </Header>
-                    <Record form={form} availed={this.state.studentData.availed}/>
+                    <Record form={form} availed={this.state.studentData.odavailed}/>
                     <Container>
                             <Segment raised>
                             <Grid columns={2}>

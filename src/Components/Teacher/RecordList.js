@@ -20,13 +20,13 @@ export default class RecordList extends Component {
         teachers.doc(localStorage.getItem('teacherid')).get().then(res=>{
             const teacherData = res.data()
             console.log(teacherData)
-            this.setState({teacherData})
-        })
-
-        teacherForms.get().then(res=>{
-            const forms = firebaseLooper(res)
-            console.log(forms)
-            this.setState({forms})
+            this.setState({teacherData},()=>{
+                teacherForms.where('Email','==',teacherData.Email).get().then(res=>{
+                    const forms = firebaseLooper(res)
+                    console.log(forms)
+                    this.setState({forms})
+                })
+            })
         })
     }
 
@@ -35,7 +35,7 @@ export default class RecordList extends Component {
     }
     
     render() {
-        const {forms,teacherData,form,renderform} = this.state
+        const {forms,teacherData,renderform} = this.state
         return (
             <>
                     <Container>
@@ -57,7 +57,7 @@ export default class RecordList extends Component {
                 <Container style={{marginTop:"30px"}}>
                                 <Segment raised style={{minHeight:"700px"}}>
                                 <Card.Group>
-                                    {forms.map(form=> (form.accepted === false && form.rejected === false) &&
+                                    {forms.map(form=>
                                     <Card>
                                     <Card.Content style={{padding:"30px"}}>
                                         <Image

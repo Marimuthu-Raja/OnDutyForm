@@ -74,7 +74,7 @@ export const principalsidebar = [
     {
         name:'Log Out',
         icon:'log out',
-        to:'/studentlogout'
+        to:'/principal-logout'
     }
 ]
 export const adminsidebar = [
@@ -96,7 +96,7 @@ export const adminsidebar = [
     {
         name:'Log Out',
         icon:'log out',
-        to:'/studentlogout'
+        to:'/admin-logout'
     }
 ]
 

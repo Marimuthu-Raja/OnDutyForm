@@ -16,9 +16,11 @@ import StudentLogout from '../Student/Logout'
 import Dashboard from '../Principal/Dashboard'
 import TeacherForms from '../Principal/Teacherforms'
 import StudentForms from '../Principal/StudenForm'
+import PrincipalLogout from '../Principal/Logout'
 import AddStudents from '../Admin/AddStudents'
 import AddTeachers from '../Admin/AddTeacher'
 import Manage from '../Admin/Manage'
+import AdminLogout from '../Admin/Logout'
 export default class Router extends Component {
     render() {
         return (
@@ -85,6 +87,8 @@ export default class Router extends Component {
                         <StudentForms/>
                     </Sidebar>
                 </Route>
+                <Route exact path='/principal-logout' component={PrincipalLogout}/>
+
 
                 <Route exact path='/add-students'>
                     <Sidebar Menu={adminsidebar}>
@@ -101,6 +105,7 @@ export default class Router extends Component {
                         <Manage/>
                     </Sidebar>
                 </Route>
+                <Route exact path='/admin-logout' component={AdminLogout}/>
             </div>
         )
     }

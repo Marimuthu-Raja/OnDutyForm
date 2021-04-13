@@ -26,6 +26,8 @@ export default class StudenForm extends Component {
     renderform = (form) =>{
        this.setState({renderform:!this.state.renderform,form})
        this.componentDidMount()
+       this.componentDidMount()
+       this.componentDidMount()
     }
 
 

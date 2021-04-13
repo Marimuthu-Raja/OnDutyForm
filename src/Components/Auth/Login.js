@@ -51,18 +51,22 @@ export default class Login extends Component {
         }
         else if(isStudent !== undefined){
             localStorage.setItem('studentid',isStudent.id)
+            localStorage.setItem('isStudent',true)
             this.props.history.push('/student-od-form')
         }
         
         else if(isTeacher !== undefined){
             localStorage.setItem('teacherid',isTeacher.id)
+            localStorage.setItem('isTeacher',true)
             this.props.history.push('/od-form')
         }
 
         else if(username === principal && password === ppassword){
+            localStorage.setItem('isPrincipal',true)
             this.props.history.push('/dashboard')
         }
         else if(username === admin && password === apassword){
+            localStorage.setItem('isAdmin',true)
             this.props.history.push('/add-students')
         }
         else{

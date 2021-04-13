@@ -55,7 +55,7 @@ export default class RecordList extends Component {
                     )} */}
                     {renderform?
                     <>
-                    <Records form={form} availed={this.state.studentData.availed}/>
+                    <Records form={form} availed={this.state.studentData.odavailed}/>
                     <div style={{textAlign:'center',marginTop:"20px"}}>
                         <Button color='teal' size='large' onClick={()=>this.setState({renderform:!this.state.renderform})}>Back</Button>
                     </div>
@@ -64,7 +64,7 @@ export default class RecordList extends Component {
                     <Container style={{marginTop:"30px"}}>
                                 <Segment raised style={{minHeight:"700px"}}>
                                 <Card.Group>
-                                    {forms.map(form=> (form.accepted === false && form.rejected === false) &&
+                                    {forms.map(form=>
                                     <Card>
                                     <Card.Content style={{padding:"30px"}}>
                                         <Image
