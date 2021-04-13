@@ -55,7 +55,7 @@ export default class RecordList extends Component {
                     )} */}
                     {renderform?
                     <>
-                    <Records form={form} availed={this.state.studentData.odavailed}/>
+                    <Records form={form} availed={this.state.studentData.availed}/>
                     <div style={{textAlign:'center',marginTop:"20px"}}>
                         <Button color='teal' size='large' onClick={()=>this.setState({renderform:!this.state.renderform})}>Back</Button>
                     </div>
