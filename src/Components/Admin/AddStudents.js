@@ -19,7 +19,7 @@ export default class AddStudents extends Component {
              address:'',
              DOB:'',
              JSON_data:'',
-             odavailed:0,
+             availed:0,
              depts:[],
         }
     }
@@ -35,8 +35,8 @@ export default class AddStudents extends Component {
     }
 
     submit = () =>{
-        const {Name,RegNo,Email,Dept,address,DOB,odavailed} = this.state
-        students.add({Name,RegNo,Email,Dept,address,DOB,odavailed}).then(()=>Alert("success","Success!","Student Added"))
+        const {Name,RegNo,Email,Dept,address,DOB,availed} = this.state
+        students.add({Name,RegNo,Email,Dept,address,DOB,availed}).then(()=>Alert("success","Success!","Student Added"))
     }
 
     fileSelect = (e)=>{
@@ -58,12 +58,12 @@ export default class AddStudents extends Component {
     }
 
     uploadsheet = () =>{
-        const { JSON_data,odavailed} = this.state
+        const { JSON_data,availed} = this.state
         if( JSON_data !== ''){
             JSON_data.map(student=>{
-                const student_object ={...student,odavailed}
+                const student_object ={...student,availed}
                 student_object['DOB']= ExcelDateToJSDate(student_object.DOB)
-                students.add(student_object,odavailed)       //upload
+                students.add(student_object,availed)       //upload
                 return 0
             })
                 Swal.fire({
